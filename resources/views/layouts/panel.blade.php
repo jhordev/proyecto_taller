@@ -13,6 +13,7 @@
         body { background: #f1f5f9; }
     </style>
     @yield('styles')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="h-full text-slate-800 antialiased">
     <!-- Header -->
@@ -34,13 +35,37 @@
                         <a href="{{ route('dashboard') }}" class="text-sm font-semibold pb-0.5 {{ request()->routeIs('dashboard') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
                             Inicio
                         </a>
-                        <a href="{{ route('empleados.index') }}" class="text-sm font-semibold pb-0.5 {{ request()->routeIs('empleados.*') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
-                            Empleados
-                        </a>
-                        <a href="{{ route('proveedores.index') }}" class="text-sm font-semibold pb-0.5 {{ request()->routeIs('proveedores.*') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
-                            Proveedores
-                        </a>
 
+                        {{-- Dropdown: Personas --}}
+                        <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                            <button type="button" class="flex items-center gap-1 text-sm font-semibold pb-0.5 {{ request()->routeIs('empleados.*', 'proveedores.*', 'clientes.*') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
+                                Personas
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-0 w-44 bg-white border border-slate-200 shadow-lg z-50" style="border-radius:0" @click.away="open = false">
+                                <a href="{{ route('empleados.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-sm {{ request()->routeIs('empleados.*') ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-slate-700 hover:bg-slate-50 font-medium' }} transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {{ request()->routeIs('empleados.*') ? 'text-indigo-500' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                    Empleados
+                                </a>
+                                <a href="{{ route('proveedores.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-sm {{ request()->routeIs('proveedores.*') ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-slate-700 hover:bg-slate-50 font-medium' }} transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {{ request()->routeIs('proveedores.*') ? 'text-indigo-500' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    Proveedores
+                                </a>
+                                <a href="{{ route('clientes.index') }}" class="flex items-center gap-2.5 px-4 py-2.5 text-sm {{ request()->routeIs('clientes.*') ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-slate-700 hover:bg-slate-50 font-medium' }} transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {{ request()->routeIs('clientes.*') ? 'text-indigo-500' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    Clientes
+                                </a>
+                            </div>
+                        </div>
                     </nav>
                 </div>
 

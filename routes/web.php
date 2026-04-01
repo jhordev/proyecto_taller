@@ -18,6 +18,7 @@ Route::middleware(['auth', 'prevent-back'])->group(function () {
     
     Route::resource('empleados', \App\Http\Controllers\EmpleadoController::class);
     Route::resource('proveedores', \App\Http\Controllers\ProveedorController::class);
+    Route::resource('clientes', \App\Http\Controllers\ClienteController::class);
 
     
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
