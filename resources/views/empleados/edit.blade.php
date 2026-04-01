@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<form action="{{ route('empleados.update', $empleado) }}" method="POST" class="space-y-6 max-w-4xl">
+<form action="{{ route('empleados.update', $empleado) }}" method="POST" class="space-y-6 max-w-6xl">
     @csrf
     @method('PUT')
 
@@ -24,7 +24,7 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Información Personal</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
             <x-field label="Nombre" name="nombre" :value="old('nombre', $empleado->nombre)" />
             <x-field label="Apellido" name="apellido" :value="old('apellido', $empleado->apellido)" />
             <x-field label="Fecha de Nacimiento" name="fecha_nac" type="date" :value="old('fecha_nac', $empleado->fecha_nac->format('Y-m-d'))" />
@@ -46,7 +46,7 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Información Laboral</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
             <x-field label="Cargo / Puesto" name="cargo" :value="old('cargo', $empleado->cargo)" />
             <x-field label="Fecha de Ingreso" name="fecha_ingreso" type="date" :value="old('fecha_ingreso', $empleado->fecha_ingreso->format('Y-m-d'))" />
             <x-field label="Salario Anual" name="salario_anual" type="number" :value="old('salario_anual', $empleado->salario_anual)" placeholder="0.00" />
@@ -58,15 +58,11 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Contacto y Dirección</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="md:col-span-2">
-                <x-field label="Dirección" name="direccion" :value="old('direccion', $empleado->direccion)" />
-            </div>
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
+            <x-field label="Dirección" name="direccion" class="md:col-span-2" :value="old('direccion', $empleado->direccion)" />
             <x-field label="Teléfono Principal" name="nro_tel_princ" :value="old('nro_tel_princ', $empleado->nro_tel_princ)" />
-            <x-field label="Teléfono Secundario (opcional)" name="nro_tel_sec" :required="false" :value="old('nro_tel_sec', $empleado->nro_tel_sec)" />
-            <div class="md:col-span-2">
-                <x-field label="Correo Electrónico (opcional)" name="email" type="email" :required="false" :value="old('email', $empleado->email)" />
-            </div>
+            <x-field label="Teléfono Secundario" name="nro_tel_sec" :required="false" :value="old('nro_tel_sec', $empleado->nro_tel_sec)" />
+            <x-field label="Correo Electrónico" name="email" type="email" class="md:col-span-2" :required="false" :value="old('email', $empleado->email)" />
         </div>
     </div>
 

@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<form action="{{ route('empleados.store') }}" method="POST" class="space-y-6 max-w-4xl">
+<form action="{{ route('empleados.store') }}" method="POST" class="space-y-6 max-w-6xl">
     @csrf
 
     {{-- Personal --}}
@@ -23,7 +23,7 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Información Personal</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
             <x-field label="Nombre" name="nombre" />
             <x-field label="Apellido" name="apellido" />
             <x-field label="Fecha de Nacimiento" name="fecha_nac" type="date" />
@@ -45,7 +45,7 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Información Laboral</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
             <x-field label="Cargo / Puesto" name="cargo" />
             <x-field label="Fecha de Ingreso" name="fecha_ingreso" type="date" />
             <x-field label="Salario Anual" name="salario_anual" type="number" placeholder="0.00" />
@@ -57,15 +57,11 @@
         <div class="px-5 py-3 border-b border-slate-200 bg-slate-50">
             <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Contacto y Dirección</h2>
         </div>
-        <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="md:col-span-2">
-                <x-field label="Dirección" name="direccion" />
-            </div>
+        <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-5">
+            <x-field label="Dirección" name="direccion" class="md:col-span-2" />
             <x-field label="Teléfono Principal" name="nro_tel_princ" />
-            <x-field label="Teléfono Secundario (opcional)" name="nro_tel_sec" :required="false" />
-            <div class="md:col-span-2">
-                <x-field label="Correo Electrónico (opcional)" name="email" type="email" :required="false" />
-            </div>
+            <x-field label="Teléfono Secundario" name="nro_tel_sec" :required="false" />
+            <x-field label="Correo Electrónico" name="email" type="email" class="md:col-span-2" :required="false" />
         </div>
     </div>
 

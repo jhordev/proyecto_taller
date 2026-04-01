@@ -4,7 +4,7 @@
     $inputValue = $value ?? old($name);
 @endphp
 
-<div>
+<div {{ $attributes }}>
     <label class="block text-sm font-semibold text-slate-700 mb-1">{{ $label }}</label>
     <input
         type="{{ $type }}"

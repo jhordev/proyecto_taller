@@ -37,6 +37,10 @@
                         <a href="{{ route('empleados.index') }}" class="text-sm font-semibold pb-0.5 {{ request()->routeIs('empleados.*') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
                             Empleados
                         </a>
+                        <a href="{{ route('proveedores.index') }}" class="text-sm font-semibold pb-0.5 {{ request()->routeIs('proveedores.*') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent' }} transition-colors">
+                            Proveedores
+                        </a>
+
                     </nav>
                 </div>
 
