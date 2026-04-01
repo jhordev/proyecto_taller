@@ -16,7 +16,10 @@ Route::middleware(['auth', 'prevent-back'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
     
+    Route::resource('empleados', \App\Http\Controllers\EmpleadoController::class);
+    
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+
 
 
