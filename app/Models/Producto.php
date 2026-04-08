@@ -36,4 +36,14 @@ class Producto extends Model
     {
         return $this->belongsTo(UnidadMedida::class, 'unidad_id', 'id_unidad');
     }
+
+    public function movimientos()
+    {
+        return $this->hasMany(MovimientoInventario::class, 'producto_id', 'id_producto');
+    }
+
+    public function detalle_ventas()
+    {
+        return $this->hasMany(DetalleVenta::class, 'producto_id', 'id_producto');
+    }
 }
