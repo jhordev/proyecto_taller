@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 
 class UnidadMedidaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todas las unidades de medida con búsqueda por nombre o abreviatura y filtro por estado
     public function index(Request $request)
     {
         $search = $request->get('buscar');
@@ -32,17 +30,13 @@ class UnidadMedidaController extends Controller
         return view('unidades.index', compact('unidades'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para crear una nueva unidad de medida
     public function create()
     {
         return view('unidades.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida y guarda una nueva unidad de medida en la base de datos
     public function store(Request $request)
     {
         $request->validate([
@@ -60,18 +54,14 @@ class UnidadMedidaController extends Controller
         return redirect()->route('unidades.index')->with('success', 'Unidad de medida creada correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos de la unidad de medida
     public function edit(string $id)
     {
         $unidad = \App\Models\UnidadMedida::findOrFail($id);
         return view('unidades.edit', compact('unidad'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza los datos de la unidad de medida
     public function update(Request $request, string $id)
     {
         $unidad = \App\Models\UnidadMedida::findOrFail($id);
@@ -91,9 +81,7 @@ class UnidadMedidaController extends Controller
         return redirect()->route('unidades.index')->with('success', 'Unidad de medida actualizada correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina la unidad de medida; lanza error si tiene productos asociados
     public function destroy(string $id)
     {
         $unidad = \App\Models\UnidadMedida::findOrFail($id);

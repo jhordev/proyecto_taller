@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class MovimientoInventarioController extends Controller
 {
+    // Lista todos los movimientos de inventario con búsqueda por producto
     public function index(Request $request)
     {
         $query = MovimientoInventario::with('producto')->orderBy('fecha', 'desc');
@@ -26,12 +27,14 @@ class MovimientoInventarioController extends Controller
         return view('movimientos.index', compact('movimientos'));
     }
 
+    // Muestra el formulario para registrar un nuevo movimiento de inventario
     public function create()
     {
         $productos = Producto::where('estado', 'activo')->get();
         return view('movimientos.create', compact('productos'));
     }
 
+    // Valida y registra el movimiento; el trigger de BD actualiza el stock automáticamente
     public function store(Request $request)
     {
         $request->validate([

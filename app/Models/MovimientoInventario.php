@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// Registra cada entrada, salida o ajuste de stock de un producto
 class MovimientoInventario extends Model
 {
     protected $table = 'movimientos_inventario';
@@ -19,6 +20,7 @@ class MovimientoInventario extends Model
         'motivo',
     ];
 
+    // Producto al que corresponde este movimiento de inventario
     public function producto()
     {
         return $this->belongsTo(Producto::class, 'producto_id', 'id_producto');

@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todos los productos con búsqueda por nombre/código, filtro por categoría y estado
     public function index(Request $request)
     {
         $search = $request->get('buscar');
@@ -38,9 +36,7 @@ class ProductoController extends Controller
         return view('productos.index', compact('productos', 'categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para crear un nuevo producto con categorías y unidades activas
     public function create()
     {
         $categorias = \App\Models\Categoria::where('estado', 'activo')->get();
@@ -48,9 +44,7 @@ class ProductoController extends Controller
         return view('productos.create', compact('categorias', 'unidades'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida, guarda el producto y sube la imagen si se proporcionó
     public function store(Request $request)
     {
         $request->validate([
@@ -88,9 +82,7 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos del producto
     public function edit(string $id)
     {
         $producto = \App\Models\Producto::findOrFail($id);
@@ -99,9 +91,7 @@ class ProductoController extends Controller
         return view('productos.edit', compact('producto', 'categorias', 'unidades'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza el producto; reemplaza la imagen anterior si se sube una nueva
     public function update(Request $request, string $id)
     {
         $producto = \App\Models\Producto::findOrFail($id);
@@ -144,9 +134,7 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina el producto y su imagen del almacenamiento
     public function destroy(string $id)
     {
         $producto = \App\Models\Producto::findOrFail($id);
