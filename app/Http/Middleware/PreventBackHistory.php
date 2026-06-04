@@ -6,13 +6,10 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+// Evita que el navegador almacene en caché páginas protegidas para impedir retroceder con el historial
 class PreventBackHistory
 {
-    /**
-     * Manejar la solicitud entrante para evitar que el navegador guarde en cache páginas protegidas.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+    // Agrega cabeceras HTTP que deshabilitan la caché del navegador en cada respuesta
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);

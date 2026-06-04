@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todos los clientes con búsqueda por nombre, apellido o documento, y filtro por estado
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -32,17 +30,13 @@ class ClienteController extends Controller
         return view('clientes.index', compact('clientes', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para registrar un nuevo cliente
     public function create()
     {
         return view('clientes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida y guarda un nuevo cliente en la base de datos
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -77,17 +71,13 @@ class ClienteController extends Controller
             ->with('success', 'Cliente registrado exitosamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos del cliente
     public function edit(Cliente $cliente)
     {
         return view('clientes.edit', compact('cliente'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza los datos del cliente
     public function update(Request $request, Cliente $cliente)
     {
         $validated = $request->validate([
@@ -122,9 +112,7 @@ class ClienteController extends Controller
             ->with('success', 'Cliente actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina el cliente de la base de datos
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();

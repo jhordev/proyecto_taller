@@ -7,26 +7,20 @@ use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todos los empleados paginados ordenados por los más recientes
     public function index()
     {
         $empleados = Empleado::latest()->paginate(10);
         return view('empleados.index', compact('empleados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para registrar un nuevo empleado
     public function create()
     {
         return view('empleados.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida y guarda un nuevo empleado en la base de datos
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -72,17 +66,13 @@ class EmpleadoController extends Controller
             ->with('success', 'Empleado registrado exitosamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos del empleado
     public function edit(Empleado $empleado)
     {
         return view('empleados.edit', compact('empleado'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza los datos del empleado
     public function update(Request $request, Empleado $empleado)
     {
         $validated = $request->validate([
@@ -128,9 +118,7 @@ class EmpleadoController extends Controller
             ->with('success', 'Empleado actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina el empleado de la base de datos
     public function destroy(Empleado $empleado)
     {
         $empleado->delete();

@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 class VentaController extends Controller
 {
+    // Lista todas las ventas con búsqueda por comprobante/cliente y filtros por estado y método de pago
     public function index(Request $request)
     {
         $query = Venta::with('cliente')->latest();
@@ -41,6 +42,7 @@ class VentaController extends Controller
         return view('ventas.index', compact('ventas'));
     }
 
+    // Muestra la pantalla del Punto de Venta con productos activos en stock y lista de clientes
     public function create()
     {
         $productos = Producto::where('estado', 'activo')->where('stock', '>', 0)->get();
@@ -48,6 +50,7 @@ class VentaController extends Controller
         return view('ventas.create', compact('productos', 'clientes'));
     }
 
+    // Procesa la venta, crea los detalles y registra movimientos de inventario en una transacción
     public function store(Request $request)
     {
         $request->validate([
@@ -121,6 +124,7 @@ class VentaController extends Controller
         }
     }
 
+    // Muestra el detalle completo de una venta con cliente y productos vendidos
     public function show(Venta $venta)
     {
         $venta->load(['cliente', 'detalles.producto']);

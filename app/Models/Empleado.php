@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// Representa un empleado de la empresa con datos personales y laborales
 class Empleado extends Model
 {
-    /** @use HasFactory<\Database\Factories\EmpleadoFactory> */
     use HasFactory;
 
-    /**
-     * Los atributos que se pueden asignar de forma masiva.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'nombre',
         'apellido',
@@ -30,11 +25,7 @@ class Empleado extends Model
         'salario_anual',
     ];
 
-    /**
-     * Los atributos que deben ser convertidos a tipos nativos.
-     *
-     * @return array<string, string>
-     */
+    // Convierte fechas y salario a sus tipos nativos
     protected function casts(): array
     {
         return [

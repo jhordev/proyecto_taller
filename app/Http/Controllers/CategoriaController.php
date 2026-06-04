@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todas las categorías con búsqueda por nombre y filtro por estado
     public function index(Request $request)
     {
         $search = $request->get('buscar');
@@ -29,17 +27,13 @@ class CategoriaController extends Controller
         return view('categorias.index', compact('categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para crear una nueva categoría
     public function create()
     {
         return view('categorias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida y guarda una nueva categoría en la base de datos
     public function store(Request $request)
     {
         $request->validate([
@@ -57,18 +51,14 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')->with('success', 'Categoría creada correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos de la categoría
     public function edit(string $id)
     {
         $categoria = \App\Models\Categoria::findOrFail($id);
         return view('categorias.edit', compact('categoria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza los datos de la categoría
     public function update(Request $request, string $id)
     {
         $categoria = \App\Models\Categoria::findOrFail($id);
@@ -88,9 +78,7 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')->with('success', 'Categoría actualizada correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina la categoría; lanza error si tiene productos asociados
     public function destroy(string $id)
     {
         $categoria = \App\Models\Categoria::findOrFail($id);

@@ -5,23 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// Representa un proveedor con datos fiscales y de contacto
 class Proveedor extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProveedorFactory> */
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'proveedores';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'ruc',
         'razon_social',
@@ -38,11 +28,7 @@ class Proveedor extends Model
         'observaciones',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    // Convierte los campos de fecha y estado a sus tipos correspondientes
     protected function casts(): array
     {
         return [

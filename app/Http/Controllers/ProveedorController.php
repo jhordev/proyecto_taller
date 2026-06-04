@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todos los proveedores con búsqueda por RUC, razón social o contacto
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -26,17 +24,13 @@ class ProveedorController extends Controller
         return view('proveedores.index', compact('proveedores', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Muestra el formulario para registrar un nuevo proveedor
     public function create()
     {
         return view('proveedores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Valida y guarda un nuevo proveedor en la base de datos
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -82,20 +76,13 @@ class ProveedorController extends Controller
             ->with('success', 'Proveedor registrado exitosamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Muestra el formulario de edición con los datos del proveedor
     public function edit(Proveedor $proveedore)
     {
-        // Note: Laravel uses plural name by default for route-model binding if resource is plural.
-        // If I use Route::resource('proveedores', ...), the parameter name will likely be 'proveedore' (Laravel's default pluralization of 'proveedore' is strange sometimes, but usually it's the singular if the resource name is plural).
-        // Let's check the route list if unsure, but I'll use '$proveedore' to match the likely parameter name from Route::resource('proveedores', ...).
         return view('proveedores.edit', ['proveedor' => $proveedore]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Valida y actualiza los datos del proveedor
     public function update(Request $request, Proveedor $proveedore)
     {
         $validated = $request->validate([
@@ -141,9 +128,7 @@ class ProveedorController extends Controller
             ->with('success', 'Proveedor actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Elimina el proveedor de la base de datos
     public function destroy(Proveedor $proveedore)
     {
         $proveedore->delete();
