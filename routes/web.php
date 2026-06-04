@@ -19,6 +19,9 @@ Route::middleware(['auth', 'prevent-back'])->group(function () {
     Route::resource('empleados', \App\Http\Controllers\EmpleadoController::class);
     Route::resource('proveedores', \App\Http\Controllers\ProveedorController::class);
     Route::resource('clientes', \App\Http\Controllers\ClienteController::class);
+Route::resource('categorias', \App\Http\Controllers\CategoriaController::class);
+Route::resource('unidades-medida', \App\Http\Controllers\UnidadMedidaController::class)->names('unidades');
+Route::resource('productos', \App\Http\Controllers\ProductoController::class);
 
     
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
