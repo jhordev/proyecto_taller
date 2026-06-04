@@ -22,6 +22,8 @@ Route::middleware(['auth', 'prevent-back'])->group(function () {
 Route::resource('categorias', \App\Http\Controllers\CategoriaController::class);
 Route::resource('unidades-medida', \App\Http\Controllers\UnidadMedidaController::class)->names('unidades');
 Route::resource('productos', \App\Http\Controllers\ProductoController::class);
+Route::resource('movimientos-inventario', \App\Http\Controllers\MovimientoInventarioController::class)->names('movimientos');
+Route::resource('ventas', \App\Http\Controllers\VentaController::class);
 
     
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

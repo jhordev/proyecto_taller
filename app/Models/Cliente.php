@@ -18,4 +18,8 @@ class Cliente extends Model
         'email',
         'estado',
     ];
+    public function ventas()
+    {
+        return $this->hasMany(Venta::class, 'cliente_id');
+    }
 }
