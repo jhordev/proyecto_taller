@@ -15,17 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 30);
             $table->string('apellido', 30);
-            $table->integer('edad')->unsigned(); 
             $table->date('fecha_nac');
             $table->string('tipo_doc', 50);
             $table->string('nro_doc', 20)->unique();
-            $table->string('cuil', 30)->unique();
             $table->string('direccion', 40);
             $table->string('nro_tel_princ', 40);
             $table->string('nro_tel_sec', 40)->nullable();
             $table->string('email', 40)->nullable();
             $table->string('cargo', 40);
-            $table->string('antiguedad', 30);
             $table->date('fecha_ingreso');
             $table->decimal('salario_anual', 10, 2)->unsigned(); 
             $table->timestamps();
