@@ -1,58 +1,267 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema POS — Taller UCSS
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de punto de venta (POS) desarrollado con Laravel como proyecto de taller universitario. Permite gestionar empleados, proveedores, clientes, productos, inventario y ventas, con un dashboard de métricas en tiempo real.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Backend:** Laravel 12 (PHP 8.2+)
+- **Base de datos:** MySQL 8.0
+- **Frontend:** Blade + Vite + ApexCharts
+- **Autenticación:** Laravel Auth con middleware de sesión
+- **Contenedores:** Docker (opcional)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Módulos del sistema
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Módulo | Descripción |
+|---|---|
+| Empleados | CRUD con validaciones y diseño plano |
+| Proveedores | Listado con búsqueda y paginación |
+| Clientes | CRUD con estado activo/inactivo |
+| Categorías | Clasificación de productos |
+| Unidades de medida | Unidades para el inventario |
+| Productos | CRUD con gestión de imágenes y sincronización de stock |
+| Inventario | Registro de movimientos con actualización automática de stock |
+| Ventas | Punto de venta y comprobantes |
+| Dashboard | KPIs, gráficos interactivos y tabla de stock crítico |
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Requisitos previos
 
-## Agentic Development
+- PHP >= 8.2
+- Composer
+- Node.js >= 18 y npm
+- MySQL 8.0 (vía Docker, XAMPP o MySQL Workbench)
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## Opción 1 — Docker (recomendado)
+
+Solo necesitas tener Docker Desktop instalado.
+
+### 1. Levantar la base de datos
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+docker compose up -d
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Esto levanta un contenedor MySQL 8.0 con:
 
-## Contributing
+| Parámetro | Valor |
+|---|---|
+| Host | `127.0.0.1` |
+| Puerto | `3301` |
+| Base de datos | `laravel` |
+| Usuario | `root` |
+| Contraseña | `123456` |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Instalar dependencias
 
-## Code of Conduct
+```bash
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Configurar el entorno
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Editar el `.env` con la conexión MySQL del contenedor:
 
-## License
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3301
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=123456
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Ejecutar migraciones y seeder
+
+```bash
+php artisan migrate --seed
+```
+
+### 5. Compilar assets y levantar el servidor
+
+```bash
+npm run build
+php artisan serve
+```
+
+El sistema queda disponible en [http://localhost:8000](http://localhost:8000).
+
+---
+
+## Opción 2 — XAMPP
+
+### 1. Iniciar XAMPP
+
+Abre el panel de control de XAMPP y activa los módulos **Apache** y **MySQL**.
+
+### 2. Crear la base de datos
+
+Abre [http://localhost/phpmyadmin](http://localhost/phpmyadmin) y crea una base de datos llamada `proyecto_taller`.
+
+### 3. Instalar dependencias
+
+```bash
+composer install
+npm install
+```
+
+### 4. Configurar el entorno
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Editar el `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=proyecto_taller
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Ejecutar migraciones y seeder
+
+```bash
+php artisan migrate --seed
+```
+
+### 6. Compilar assets y levantar el servidor
+
+```bash
+npm run build
+php artisan serve
+```
+
+El sistema queda disponible en [http://localhost:8000](http://localhost:8000).
+
+---
+
+## Opción 3 — MySQL Workbench (BD externa)
+
+Esta opción es útil si ya tienes MySQL instalado de forma nativa y lo gestionas con MySQL Workbench.
+
+### 1. Crear la base de datos desde Workbench
+
+Abre MySQL Workbench, conéctate a tu servidor local y ejecuta:
+
+```sql
+CREATE DATABASE proyecto_taller CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 2. Instalar dependencias
+
+```bash
+composer install
+npm install
+```
+
+### 3. Configurar el entorno
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Editar el `.env` con los datos de tu instalación MySQL:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=proyecto_taller
+DB_USERNAME=root
+DB_PASSWORD=tu_contraseña
+```
+
+### 4. Ejecutar migraciones y seeder
+
+```bash
+php artisan migrate --seed
+```
+
+### 5. Compilar assets y levantar el servidor
+
+```bash
+npm run build
+php artisan serve
+```
+
+El sistema queda disponible en [http://localhost:8000](http://localhost:8000).
+
+---
+
+## Credenciales por defecto
+
+El seeder crea un usuario administrador listo para usar:
+
+| Campo | Valor |
+|---|---|
+| Correo | `admin@admin.com` |
+| Contraseña | `admin123` |
+
+---
+
+## Estructura de la base de datos
+
+Las migraciones crean las siguientes tablas y objetos en orden:
+
+```
+users, cache, jobs
+empleados
+proveedores
+clientes
+unidades_medida
+categorias
+productos               ← trigger: sincroniza estado por stock
+movimientos_inventario  ← trigger: actualiza stock al registrar movimiento
+ventas
+detalle_ventas
+vistas SQL del dashboard (v_ventas_diarias, v_ventas_mensuales,
+                          v_productos_mas_vendidos,
+                          v_ventas_por_metodo_pago,
+                          v_stock_critico)
+```
+
+---
+
+## Comandos útiles
+
+```bash
+# Levantar contenedor MySQL (Docker)
+docker compose up -d
+
+# Detener contenedor MySQL (Docker)
+docker compose down
+
+# Revertir y volver a ejecutar todas las migraciones
+php artisan migrate:fresh --seed
+
+# Compilar assets en modo desarrollo con hot reload
+npm run dev
+
+# Ver rutas registradas
+php artisan route:list
+```
+
+---
+
+## Equipo
+
+Proyecto desarrollado como trabajo de taller universitario — UCSS.
